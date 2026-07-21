@@ -33,6 +33,7 @@
       <geometry>
         <cylinder length="0.155" radius="0.178"/>
       </geometry>
+      <material name="blue" />
     </visual>
 
     <collision>
@@ -47,6 +48,8 @@
       <inertia ixx="0.0008333333333333335" ixy="0" ixz="0" iyy="0.0008333333333333335" iyz="0" izz="0.0008333333333333335"/>
     </inertial>
 
+    
+
   </link>
 
 
@@ -56,6 +59,7 @@
     <geometry>
       <cylinder length="0.0206" radius="0.0352"/>
     </geometry>
+    <material name="yellow"/>
   </visual>
   <collision>
     <origin rpy="1.5708 0 0" xyz="0 0 0"/>
@@ -70,7 +74,7 @@
              iyy="1.86e-05" iyz="0.0"
              izz="3.10e-05"/>
   </inertial>
-  <material name="yellow"/>
+  
 </link>
 
 <link name="right_wheel">
@@ -79,6 +83,7 @@
     <geometry>
       <cylinder length="0.0206" radius="0.0352"/>
     </geometry>
+    <material name="yellow"/>
   </visual>
   <collision>
     <origin rpy="1.5708 0 0" xyz="0 0 0"/>
@@ -93,7 +98,7 @@
              iyy="1.86e-05" iyz="0.0"
              izz="3.10e-05"/>
   </inertial>
-  <material name="yellow"/>
+  
 </link>
 
   <joint name="base_link_joint" type="fixed">
@@ -123,6 +128,7 @@
       <geometry>
         <cylinder length="0.220" radius="0.010"/>
       </geometry>
+      <material name="blue" />
     </visual>
 
     <collision>
@@ -144,6 +150,7 @@
       <geometry>
         <cylinder length="0.220" radius="0.010"/>
       </geometry>
+      <material name="blue" />
     </visual>
 
     <collision>
@@ -165,6 +172,7 @@
       <geometry>
         <cylinder length="0.220" radius="0.010"/>
       </geometry>
+      <material name="blue" />
     </visual>
 
     <collision>
@@ -187,6 +195,7 @@
       <geometry>
         <cylinder length="0.220" radius="0.010"/>
       </geometry>
+      <material name="blue" />
     </visual>
 
     <collision>
@@ -209,6 +218,7 @@
       <geometry>
         <cylinder length="0.090" radius="0.160"/>
       </geometry>
+      <material name="blue" />
     </visual>
 
     <collision>

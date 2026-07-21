@@ -17,6 +17,12 @@ def generate_launch_description():
     print("Fetching URDF ==>")
     robot_desc_path = os.path.join(get_package_share_directory(package_description), "urdf", urdf_file)
 
+    rviz_config = os.path.join(
+        get_package_share_directory('barista_robot_description'),
+        'rviz',
+        'file.rviz'  
+    )
+
     # Joint State Publisher_gui, different from reg joint state publisher
     joint_state_publisher_gui = Node(
         package="joint_state_publisher_gui",
@@ -40,6 +46,12 @@ def generate_launch_description():
         [
                 
             robot_state_publisher_node,
-            joint_state_publisher_gui
+            joint_state_publisher_gui,
+            Node(
+            package='rviz2',
+            executable='rviz2',
+            arguments=['-d', rviz_config],
+            output='screen'
+        )
         ]
     )
