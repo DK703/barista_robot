@@ -507,7 +507,71 @@
     </plugin>
 </gazebo>
 
- 
+
+
+<link name="laser_scan_frame">
+  <visual>
+    <geometry>
+      <cylinder length="0.04" radius="0.03"/>
+    </geometry>
+    <material name="red"/>
+  </visual>
+  <collision>
+    <geometry>
+      <cylinder length="0.04" radius="0.03"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="0.05"/>
+    <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
+  </inertial>
+</link>
+
+<joint name="laser_scan_joint" type="fixed">
+  <origin rpy="0 0 0" xyz="0 0 0.1"/>  
+  <parent link="chassis"/>
+  <child link="laser_scan_frame"/>
+</joint>
+
+
+ <!-- Enable Sensors in Gazebo Sim -->
+<gazebo>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+        <!-- use ogre2 if ogre v2.x is installed, otherwise use ogre -->
+        <render_engine>ogre2</render_engine>
+    </plugin>
+</gazebo>
+
+<!-- Laser Scanner Plugin -->
+<gazebo reference="laser_scan_frame">
+    <sensor type="gpu_lidar" name="gpu_lidar">
+        <pose relative_to='laser_scan_frame'>0 0 0 0 0 0</pose>
+        <gz_frame_id>laser_scan_frame</gz_frame_id>
+        <always_on>1</always_on>
+        <visualize>true</visualize>
+        <update_rate>100</update_rate>
+        <!-- change topic name from laser_scan to scan-->
+        <topic>scan</topic>
+        <ray>
+            <scan>
+                <horizontal>
+                    <samples>200</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-3.14</min_angle>
+                    <max_angle>3.14</max_angle>
+                </horizontal>
+            </scan>
+            <range>
+                <min>0.1</min>
+                <max>5.0</max>
+                <resolution>0.01</resolution>
+            </range>
+        </ray>
+    </sensor>
+</gazebo>
+
+
+
 
   
   
