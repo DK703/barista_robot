@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="barista">
+<xacro:include filename="$(find barista_robot_description)/xacro/drive_wheel.xacro" />
+<xacro:include filename="$(find barista_robot_description)/xacro/caster_wheel.xacro" />
+<xacro:include filename="$(find barista_robot_description)/xacro/standoff_rod.xacro" />
+<xacro:include filename="$(find barista_robot_description)/xacro/cup_holder_tray.xacro" />
+  <material name="red">
+      <color rgba="1.0 0.0 0.0 1"/>
+  </material>
+
+  <material name="green_light">
+      <color rgba="0.0 1.0 0.0 1"/>
+  </material>
+
+  <material name="green_dark">
+    <color rgba="0.0 0.5 0.0 1"/>
+  </material>
+
+  <material name="yellow">
+      <color rgba="1.0 1.0 0.0 1"/>
+  </material>
+
+  <material name="blue">
+      <color rgba="0.0 0.0 1.0 1"/>
+  </material>
+
+  <link name="base_link">
+
+
+  </link>
+
+
+  <!-- Body -->
+  <link name="chassis">
+    <visual>
+      <geometry>
+        <cylinder length="0.155" radius="0.178"/>
+      </geometry>
+      <material name="blue" />
+    </visual>
+
+    <collision>
+      <geometry>
+        <cylinder length="0.155" radius="0.178"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="0.5"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.0008333333333333335" ixy="0" ixz="0" iyy="0.0008333333333333335" iyz="0" izz="0.0008333333333333335"/>
+    </inertial>
+
+    
+
+  </link>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="base_link" />
+    <child link="chassis" />
+  </joint>
+
+<xacro:drive_wheel wheel_name="left_wheel" />
+<xacro:drive_wheel wheel_name="right_wheel" />
+
+
+<joint name="joint_left_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0.125 -0.0884"/>
+    <child link="left_wheel"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    
+</joint>
+
+<joint name="joint_right_wheel" type="continuous">
+    <origin rpy="0 0 0" xyz="0 -0.125 -0.0884"/>
+    <child link="right_wheel"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    
+</joint>
+
+<xacro:caster_wheel wheel_name ="left_caster_wheel"/>
+<xacro:caster_wheel wheel_name ="right_caster_wheel"/>
+
+  <joint name="yaw_joint_left" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.12 0 -0.086" />
+    <parent link="chassis" />
+    <child link="left_caster_wheel_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+ <joint name="yaw_joint_right" type="continuous">
+    <origin rpy="0 0 0" xyz="0.12 0 -0.086" />
+    <parent link="chassis" />
+    <child link="right_caster_wheel_yaw_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+<xacro:standoff_rod rod_name = "left1_rod"/>
+<xacro:standoff_rod rod_name = "left2_rod"/>
+<xacro:standoff_rod rod_name = "right1_rod"/>
+<xacro:standoff_rod rod_name = "right2_rod"/>
+
+<joint name = "left_rod_joint" type = "fixed">
+    <origin rpy="0 0 0" xyz="0.07 0.135 0.1875"/>
+    <child link="left1_rod"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+</joint>
+
+<joint name = "left_cone_joint2" type = "fixed">
+    <origin rpy="0 0 0" xyz="-0.07 0.135 0.1875"/>
+    <child link="left2_rod"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+</joint>
+
+<joint name = "right_cone_joint" type = "fixed">
+    <origin rpy="0 0 0" xyz="0.07 -0.135 0.1875"/>
+    <child link="right1_rod"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+</joint>
+
+<joint name = "right_cone_joint2" type = "fixed">
+    <origin rpy="0 0 0" xyz="-0.07 -0.135 0.1875"/>
+    <child link="right2_rod"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+</joint>
+
+<xacro:cup_holder_tray cup_holder_tray_name = "cup_holder"/>
+
+<joint name = "top" type = "fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.340"/>
+    <child link="cup_holder"/>
+    <parent link="chassis"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+</joint>
+
+
+  <!-- Differential Drive Plugin -->
+<gazebo>
+    <plugin
+        filename="gz-sim-diff-drive-system"
+        name="gz::sim::systems::DiffDrive">
+        <left_joint>joint_left_wheel</left_joint>
+        <right_joint>joint_right_wheel</right_joint>
+        <wheel_separation>0.1</wheel_separation>
+        <wheel_radius>0.035</wheel_radius>
+        <topic>cmd_vel</topic>
+        <publish_odom>true</publish_odom>
+        <publish_odom_tf>true</publish_odom_tf>
+        <publish_wheel_tf>true</publish_wheel_tf>
+        <odom_topic>odom</odom_topic>
+        <tf_topic>tf</tf_topic>
+        <frame_id>odom</frame_id>
+        <child_frame_id>base_link</child_frame_id>
+    </plugin>
+</gazebo>
+
+</robot>
+
+
+
