@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="laser_scanner" params="laser_scanner_name">
+
+<link name="${laser_scanner_name}">
+  <visual>
+    <geometry>
+      <cylinder length="0.04" radius="0.03"/>
+    </geometry>
+    <material name="red"/>
+  </visual>
+  <collision>
+    <geometry>
+      <cylinder length="0.04" radius="0.03"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="0.05"/>
+    <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
+  </inertial>
+</link>
+
+</xacro:macro>
+</robot>
