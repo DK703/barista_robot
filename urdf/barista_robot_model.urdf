@@ -139,7 +139,7 @@
 </link>
 
 <joint name = "left_cone_joint" type = "fixed">
-    <origin rpy="0 0 0" xyz="0.07 0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="0.07 0.095 0.1875"/>
     <child link="left_cone"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -161,7 +161,7 @@
 </link>
 
 <joint name = "right_cone_joint" type = "fixed">
-    <origin rpy="0 0 0" xyz="0.07 -0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="0.07 -0.095 0.1875"/>
     <child link="right_cone"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -183,7 +183,7 @@
 </link>
 
 <joint name = "left_cone_joint2" type = "fixed">
-    <origin rpy="0 0 0" xyz="-0.07 0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="-0.07 0.095 0.1875"/>
     <child link="left_cone2"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -206,7 +206,7 @@
 </link>
 
 <joint name = "right_cone_joint2" type = "fixed">
-    <origin rpy="0 0 0" xyz="-0.07 -0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="-0.07 -0.095 0.1875"/>
     <child link="right_cone2"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -522,13 +522,13 @@
 <link name="laser_scan_frame">
   <visual>
     <geometry>
-      <cylinder length="0.04" radius="0.03"/>
+      <mesh filename="file:///home/user/ros2_ws/src/cp7_auxiliary_files/meshes/intel_realsense_d435.dae"/>
     </geometry>
     <material name="red"/>
   </visual>
   <collision>
     <geometry>
-      <cylinder length="0.04" radius="0.03"/>
+      <mesh filename="file:///home/user/ros2_ws/src/cp7_auxiliary_files/meshes/intel_realsense_d435.dae"/>
     </geometry>
   </collision>
   <inertial>
@@ -538,7 +538,7 @@
 </link>
 
 <joint name="laser_scan_joint" type="fixed">
-  <origin rpy="0 0 0" xyz="0 0 0.1"/>  
+  <origin rpy="0 0 0" xyz="0.14 0.02 0.1"/>  
   <parent link="chassis"/>
   <child link="laser_scan_frame"/>
 </joint>
