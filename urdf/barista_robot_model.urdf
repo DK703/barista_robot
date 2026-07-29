@@ -538,7 +538,7 @@
 </link>
 
 <joint name="laser_scan_joint" type="fixed">
-  <origin rpy="0 0 0" xyz="0.14 0.02 0.1"/>  
+  <origin rpy="0 0 0" xyz="0.14 0.02 0.087"/>  
   <parent link="chassis"/>
   <child link="laser_scan_frame"/>
 </joint>

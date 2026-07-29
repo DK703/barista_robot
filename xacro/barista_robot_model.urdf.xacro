@@ -109,28 +109,28 @@
 <xacro:standoff_rod rod_name = "right2_rod"/>
 
 <joint name = "left_rod_joint" type = "fixed">
-    <origin rpy="0 0 0" xyz="0.07 0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="0.07 0.095 0.1875"/>
     <child link="left1_rod"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
 </joint>
 
 <joint name = "left_cone_joint2" type = "fixed">
-    <origin rpy="0 0 0" xyz="-0.07 0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="-0.07 0.095 0.1875"/>
     <child link="left2_rod"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
 </joint>
 
 <joint name = "right_cone_joint" type = "fixed">
-    <origin rpy="0 0 0" xyz="0.07 -0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="0.07 -0.095 0.1875"/>
     <child link="right1_rod"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
 </joint>
 
 <joint name = "right_cone_joint2" type = "fixed">
-    <origin rpy="0 0 0" xyz="-0.07 -0.135 0.1875"/>
+    <origin rpy="0 0 0" xyz="-0.07 -0.095 0.1875"/>
     <child link="right2_rod"/>
     <parent link="chassis"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
@@ -173,22 +173,12 @@
   <xacro:laser_scanner laser_scanner_name="laser_scanner"/>
 
   <joint name="laser_scanner_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.1"/>  
+    <origin rpy="0 0 0" xyz="0.14 0.02 0.087"/>   
     <parent link="chassis"/>
     <child link="laser_scanner"/>
   </joint>
 
-</xacro:if>
-
- <!-- Enable Sensors in Gazebo Sim -->
-<gazebo>
-    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
-        <!-- use ogre2 if ogre v2.x is installed, otherwise use ogre -->
-        <render_engine>ogre2</render_engine>
-    </plugin>
-</gazebo>
-
-<!-- Laser Scanner Plugin -->
+  <!-- Laser Scanner Plugin -->
 <gazebo reference="laser_scanner">
     <sensor type="gpu_lidar" name="gpu_lidar">
         <pose relative_to='laser_scanner'>0 0 0 0 0 0</pose>
@@ -215,6 +205,18 @@
         </ray>
     </sensor>
 </gazebo>
+
+
+</xacro:if>
+
+ <!-- Enable Sensors in Gazebo Sim -->
+<gazebo>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+        <!-- use ogre2 if ogre v2.x is installed, otherwise use ogre -->
+        <render_engine>ogre2</render_engine>
+    </plugin>
+</gazebo>
+
 
 
 

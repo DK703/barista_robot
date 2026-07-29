@@ -6,13 +6,13 @@
 <link name="${laser_scanner_name}">
   <visual>
     <geometry>
-      <cylinder length="0.04" radius="0.03"/>
+      <mesh filename="file:///home/user/ros2_ws/src/cp7_auxiliary_files/meshes/intel_realsense_d435.dae"/>
     </geometry>
     <material name="red"/>
   </visual>
   <collision>
     <geometry>
-      <cylinder length="0.04" radius="0.03"/>
+      <mesh filename="file:///home/user/ros2_ws/src/cp7_auxiliary_files/meshes/intel_realsense_d435.dae"/>
     </geometry>
   </collision>
   <inertial>

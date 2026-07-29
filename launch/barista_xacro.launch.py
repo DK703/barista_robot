@@ -7,6 +7,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import SetParameter
 from launch_ros.actions import Node
 from launch.substitutions import Command
+from launch_ros.parameter_descriptions import ParameterValue
 
 import xacro
 # ROS2 Launch System will look for this function definition #
@@ -51,9 +52,16 @@ def generate_launch_description():
     #robot_desc_path = os.path.join(get_package_share_directory(package_description), "urdf", urdf_file)
 
     xacro_file = os.path.join(pkg_box_bot_description, 'xacro', 'barista_robot_model.urdf.xacro')
-    doc = xacro.parse(open(xacro_file))
-    xacro.process_doc(doc)
-    params = {'robot_description': doc.toxml()}
+    #doc = xacro.parse(open(xacro_file))
+    #xacro.process_doc(doc)
+    #params = {'robot_description': doc.toxml()}
+
+    robot_description_content = ParameterValue(
+    Command(['xacro ', xacro_file, ' include_laser:=', LaunchConfiguration('include_laser', default='true')]),
+    value_type=str
+    )
+    params = {'robot_description': robot_description_content}
+
 
     rviz_config = os.path.join(
         get_package_share_directory('barista_robot_description'),
@@ -91,6 +99,8 @@ def generate_launch_description():
                                             description="Model Spawn Z Axis Value")
     declare_spawn_yaw = DeclareLaunchArgument("yaw", default_value="3.14",
                                             description="Model Spawn Yaw Value")
+    declare_include_laser = DeclareLaunchArgument('include_laser', default_value='true', description='Include the laser scanner in the robot model')
+    
     gz_spawn_entity = Node(
         package="ros_gz_sim",
         executable="create",
@@ -146,5 +156,6 @@ def generate_launch_description():
             declare_spawn_yaw,
             gz_spawn_entity,
             gz_bridge,
+            declare_include_laser,
         ]
     )
